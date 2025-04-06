@@ -37,3 +37,34 @@ async def write_medication_administration(med_admin_dict: dict):
     except Exception as e:
         logger.error(f"Error al validar o insertar la administración de medicación: {e}")
         return f"errorValidating: {str(e)}", None
+# Al final de PatientCrud.py
+
+GetMedicationAdministrationById = get_medication_administration_by_id
+WriteMedicationAdministration = write_medication_administration
+
+async def update_medication_administration(med_admin_id: str, updated_dict: dict):
+    try:
+        result = await collection.update_one(
+            {"_id": ObjectId(med_admin_id)},
+            {"$set": updated_dict}
+        )
+        if result.matched_count == 0:
+            return "notFound"
+        return "success"
+    except Exception as e:
+        logger.error(f"Error actualizando administración de medicación: {e}")
+        return f"error: {str(e)}"
+
+async def delete_medication_administration(med_admin_id: str):
+    try:
+        result = await collection.delete_one({"_id": ObjectId(med_admin_id)})
+        if result.deleted_count == 0:
+            return "notFound"
+        return "success"
+    except Exception as e:
+        logger.error(f"Error eliminando administración de medicación: {e}")
+        return f"error: {str(e)}"
+
+UpdateMedicationAdministration = update_medication_administration
+DeleteMedicationAdministration = delete_medication_administration
+
