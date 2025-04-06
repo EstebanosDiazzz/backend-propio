@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.controlador.PatientCrud import GetPatientById, WritePatient
 from app.controlador.PatientCrud  import (
     GetMedicationAdministrationById,
-    WriteMedicationAdministration,
+    writeMedicationAdministration,
     UpdateMedicationAdministration,
     DeleteMedicationAdministration,
 )
