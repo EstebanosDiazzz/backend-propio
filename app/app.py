@@ -13,13 +13,16 @@ from app.controlador.PatientCrud import (
 
 app = FastAPI()
 
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://frontend-propio-medicamentos.onrender.com"],  # Permitir solo este dominio
+    allow_origins=["https://frontend-propio-medicamentos.onrender.com"],
     allow_credentials=True,
-    allow_methods=["*"],  # Permitir todos los métodos (GET, POST, etc.)
-    allow_headers=["*"],  # Permitir todos los encabezados
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+  # Permitir todos los encabezados
+
 
 # Endpoints para Patient
 @app.get("/patient/{patient_id}", response_model=dict)
