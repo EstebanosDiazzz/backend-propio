@@ -1,12 +1,13 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from app.controlador.PatientCrud import GetPatientById, WritePatient
-from app.controlador.PatientCrud  import (
+from app.controlador.PatientCrud import (
     GetMedicationAdministrationById,
-    writeMedicationAdministration,
+    WriteMedicationAdministration,
     UpdateMedicationAdministration,
     DeleteMedicationAdministration,
 )
+
 
 app = FastAPI()
 
