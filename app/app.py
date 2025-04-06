@@ -1,3 +1,4 @@
+from fastapi import FastAPI, HTTPException
 from app.controlador.PatientCrud import (
     GetMedicationAdministrationById,
     WriteMedicationAdministration,
