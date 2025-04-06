@@ -7,8 +7,8 @@ import logging
 # Configuración del cliente de MongoDB
 MONGO_DETAILS = "mongodb+srv://Juanesdiaz123-:juanete@tareabioif.p9och.mongodb.net/?retryWrites=true&w=majority&appName=TAREABIOIF"
 client = AsyncIOMotorClient(MONGO_DETAILS)
-database = "SamplePatientService"
-collection = "medication_administrations"
+db = client["SamplePatientService"]
+collection = db["medication_administrations"]     
 
 # Configuración de logging
 logging.basicConfig(level=logging.INFO)
