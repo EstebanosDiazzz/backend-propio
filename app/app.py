@@ -9,18 +9,18 @@ from app.controlador.PatientCrud import (
     DeleteMedicationAdministration,
 )
 
-
-
+            
 app = FastAPI()
 
-
+# CORS Middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://frontend-propio-medicamentos.onrender.com"],
+    allow_origins=["https://frontend-propio-medicamentos.onrender.com"],  # Frontend
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
   # Permitir todos los encabezados
 
 
