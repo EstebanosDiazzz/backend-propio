@@ -1,12 +1,10 @@
-from fastapi import FastAPI, HTTPException, Request
-from fastapi.middleware.cors import CORSMiddleware
-from app.controlador.PatientCrud import GetPatientById, WritePatient
 from app.controlador.PatientCrud import (
     GetMedicationAdministrationById,
     WriteMedicationAdministration,
     UpdateMedicationAdministration,
     DeleteMedicationAdministration,
 )
+
 
 
 app = FastAPI()
@@ -42,13 +40,14 @@ async def add_patient(request: Request):
 # Endpoints para MedicationAdministration
 @app.get("/medication_administration/{med_admin_id}", response_model=dict)
 async def get_medication_administration_by_id(med_admin_id: str):
-    status, med_admin = GetMedicationAdministrationById(med_admin_id)
-    if status == 'success':
+    status, med_admin = await GetMedicationAdministrationById(med_admin_id)
+    if status == "success":
         return med_admin
-    elif status == 'notFound':
+    elif status == "notFound":
         raise HTTPException(status_code=404, detail="MedicationAdministration not found")
     else:
         raise HTTPException(status_code=500, detail=f"Internal error. {status}")
+
 
 @app.post("/medication_administration", response_model=dict)
 async def add_medication_administration(request: Request):
