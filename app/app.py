@@ -59,7 +59,7 @@ async def get_medication_administration_by_id(med_admin_id: str):
 @app.post("/medication_administration", response_model=dict)
 async def add_medication_administration(request: Request):
     new_med_admin_dict = await request.json()
-    status, med_admin_id = WriteMedicationAdministration(new_med_admin_dict)
+    status, med_admin_id = await WriteMedicationAdministration(new_med_admin_dict)
     if status == 'success':
         return {"_id": med_admin_id}
     else:
