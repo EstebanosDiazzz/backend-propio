@@ -1,3 +1,4 @@
+from fhir.resources.patient import Patient
 from motor.motor_asyncio import AsyncIOMotorClient
 from bson import ObjectId
 from fhir.resources.medicationadministration import MedicationAdministration
@@ -67,4 +68,37 @@ async def delete_medication_administration(med_admin_id: str):
 
 UpdateMedicationAdministration = update_medication_administration
 DeleteMedicationAdministration = delete_medication_administration
+# Asegúrate de tener esta línea arriba también
+
+# Obtener paciente por ID
+async def get_patient_by_id(patient_id: str):
+    try:
+        patient = await client[database]["patients"].find_one({"_id": ObjectId(patient_id)})
+        if patient:
+            patient["_id"] = str(patient["_id"])  # Convertir ObjectId a string
+            return "success", patient
+        return "notFound", None
+    except Exception as e:
+        logger.error(f"Error al obtener el paciente: {e}")
+        return "error", None
+
+# Escribir paciente nuevo
+async def write_patient(patient_dict: dict):
+    try:
+        # Validar con FHIR
+        patient = Patient(**patient_dict)
+        validated_patient_json = json.loads(patient.json())
+
+        result = await client[database]["patients"].insert_one(validated_patient_json)
+        if result.inserted_id:
+            return "success", str(result.inserted_id)
+        else:
+            return "errorInserting", None
+    except Exception as e:
+        logger.error(f"Error al validar o insertar paciente: {e}")
+        return f"errorValidating: {str(e)}", None
+
+# Alias para FastAPI
+GetPatientById = get_patient_by_id
+WritePatient = write_patient
 
